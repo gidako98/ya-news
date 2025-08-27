@@ -15,13 +15,13 @@ def test_user_create_comment(
     author_client,
     author,
     new_comment_form,
-    news
+    news,
 ):
     url = reverse('news:detail', kwargs={'pk': news.id})
     response = author_client.post(url, data=new_comment_form)
     assertRedirects(
         response,
-        reverse('news:detail', kwargs={'pk': news.id}) + '#comments'
+        reverse('news:detail', kwargs={'pk': news.id}) + '#comments',
     )
     assert news.comment_set.count() == 1
     comment = Comment.objects.first()
@@ -39,7 +39,7 @@ def test_user_cant_use_bad_words(not_author_client, news):
     assertFormError(
         form=form,
         field='text',
-        errors=WARNING
+        errors=WARNING,
     )
     comments_count = Comment.objects.count()
     assert comments_count == 0
@@ -49,7 +49,7 @@ def test_author_can_edit_comment(
         author_client,
         news,
         new_comment_form,
-        comment
+        comment,
 ):
     url = reverse('news:edit', kwargs={'pk': news.id})
     author_client.post(url, new_comment_form)
@@ -61,7 +61,7 @@ def test_not_author_cant_edit_comment(
         not_author_client,
         news,
         new_comment_form,
-        comment
+        comment,
 ):
     url = reverse('news:edit', kwargs={'pk': news.id})
     response = not_author_client.post(url, new_comment_form)

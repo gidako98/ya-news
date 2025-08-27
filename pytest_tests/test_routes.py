@@ -13,7 +13,7 @@ from http import HTTPStatus
         ('news:detail', 'id'),
         ('users:login', None),
         ('users:signup', None),
-    )
+    ),
 )
 def test_pages_availability(client, name, news, args):
     if args == 'id':
@@ -36,7 +36,7 @@ def test_pages_availability(client, name, news, args):
     (
         ('news:delete'),
         ('news:edit'),
-    )
+    ),
 )
 def test_availability_for_comment_edit_and_delete(
     name,
@@ -52,7 +52,7 @@ def test_availability_for_comment_edit_and_delete(
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     'name',
-    ('news:edit', 'news:delete')
+    ('news:edit', 'news:delete'),
 )
 def test_redirect_for_anonymous_client(client, comment, name):
     login_url = reverse('users:login')
